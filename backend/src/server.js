@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
+const reportRoutes = require("./routes/reportRoutes");
 
 // Load environment variables
 dotenv.config();
@@ -44,6 +45,7 @@ app.get("/api/health", (req, res) => {
 // API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
+app.use("/api/reports", reportRoutes);
 
 // Error middleware
 app.use(notFound);
