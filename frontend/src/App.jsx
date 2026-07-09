@@ -15,6 +15,9 @@ import ManagerDashboard from "./pages/manager/ManagerDashboard";
 import TeamReportsPage from "./pages/manager/TeamReportsPage";
 import ProjectsPage from "./pages/manager/ProjectsPage";
 
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
 const HomePage = () => {
   const { user, isAuthenticated } = useAuth();
 
@@ -38,8 +41,8 @@ const HomePage = () => {
         </h1>
 
         <p className="mt-5 text-lg text-gray-600">
-          A MERN full-stack application for weekly reports, team progress,
-          projects, and manager dashboard analytics.
+          A MERN full-stack application for team members to submit structured
+          weekly reports and managers to view dashboard insights.
         </p>
 
         <div className="mt-8 flex justify-center gap-4">
@@ -76,7 +79,7 @@ const RoleRoute = ({ allowedRole, children }) => {
   const { user } = useAuth();
 
   if (!user || user.role !== allowedRole) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/unauthorized" replace />;
   }
 
   return children;
@@ -162,7 +165,8 @@ const App = () => {
           />
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/unauthorized" element={<UnauthorizedPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
