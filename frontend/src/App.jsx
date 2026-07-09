@@ -11,6 +11,10 @@ import MyReportsPage from "./pages/member/MyReportsPage";
 import CreateReportPage from "./pages/member/CreateReportPage";
 import EditReportPage from "./pages/member/EditReportPage";
 
+import ManagerDashboard from "./pages/manager/ManagerDashboard";
+import TeamReportsPage from "./pages/manager/TeamReportsPage";
+import ProjectsPage from "./pages/manager/ProjectsPage";
+
 const HomePage = () => {
   const { user, isAuthenticated } = useAuth();
 
@@ -54,39 +58,6 @@ const HomePage = () => {
           </a>
         </div>
       </div>
-    </div>
-  );
-};
-
-const ManagerDashboard = () => {
-  return (
-    <div className="rounded-xl bg-white p-6 shadow-sm">
-      <h1 className="text-2xl font-bold text-gray-900">Manager Dashboard</h1>
-      <p className="mt-2 text-gray-600">
-        Manager dashboard will be developed in the next phase.
-      </p>
-    </div>
-  );
-};
-
-const TeamReportsPage = () => {
-  return (
-    <div className="rounded-xl bg-white p-6 shadow-sm">
-      <h1 className="text-2xl font-bold text-gray-900">Team Reports</h1>
-      <p className="mt-2 text-gray-600">
-        Team reports page will be developed in the next phase.
-      </p>
-    </div>
-  );
-};
-
-const ProjectsPage = () => {
-  return (
-    <div className="rounded-xl bg-white p-6 shadow-sm">
-      <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
-      <p className="mt-2 text-gray-600">
-        Project management page will be developed in the next phase.
-      </p>
     </div>
   );
 };
