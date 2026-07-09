@@ -4,6 +4,13 @@ import { useAuth } from "./context/AuthContext";
 import LoginPage from "./pages/auth/LoginPage";
 import RegisterPage from "./pages/auth/RegisterPage";
 
+import DashboardShell from "./components/common/DashboardShell";
+
+import MemberDashboard from "./pages/member/MemberDashboard";
+import MyReportsPage from "./pages/member/MyReportsPage";
+import CreateReportPage from "./pages/member/CreateReportPage";
+import EditReportPage from "./pages/member/EditReportPage";
+
 const HomePage = () => {
   const { user, isAuthenticated } = useAuth();
 
@@ -16,7 +23,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 flex items-center justify-center px-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-100 px-4">
       <div className="max-w-3xl text-center">
         <p className="mb-4 inline-block rounded-full bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-700">
           Software Engineering Internship Assignment
@@ -51,62 +58,35 @@ const HomePage = () => {
   );
 };
 
-const MemberDashboard = () => {
-  const { user, logout } = useAuth();
-
+const ManagerDashboard = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="mx-auto max-w-5xl rounded-xl bg-white p-6 shadow">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Member Dashboard
-            </h1>
-            <p className="mt-1 text-gray-600">Welcome, {user?.name}</p>
-          </div>
-
-          <button
-            onClick={logout}
-            className="rounded-lg bg-gray-900 px-4 py-2 text-white"
-          >
-            Logout
-          </button>
-        </div>
-
-        <div className="mt-6 rounded-lg bg-blue-50 p-4 text-blue-800">
-          Login is working. Next we will add create report and my reports pages.
-        </div>
-      </div>
+    <div className="rounded-xl bg-white p-6 shadow-sm">
+      <h1 className="text-2xl font-bold text-gray-900">Manager Dashboard</h1>
+      <p className="mt-2 text-gray-600">
+        Manager dashboard will be developed in the next phase.
+      </p>
     </div>
   );
 };
 
-const ManagerDashboard = () => {
-  const { user, logout } = useAuth();
-
+const TeamReportsPage = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="mx-auto max-w-5xl rounded-xl bg-white p-6 shadow">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Manager Dashboard
-            </h1>
-            <p className="mt-1 text-gray-600">Welcome, {user?.name}</p>
-          </div>
+    <div className="rounded-xl bg-white p-6 shadow-sm">
+      <h1 className="text-2xl font-bold text-gray-900">Team Reports</h1>
+      <p className="mt-2 text-gray-600">
+        Team reports page will be developed in the next phase.
+      </p>
+    </div>
+  );
+};
 
-          <button
-            onClick={logout}
-            className="rounded-lg bg-gray-900 px-4 py-2 text-white"
-          >
-            Logout
-          </button>
-        </div>
-
-        <div className="mt-6 rounded-lg bg-green-50 p-4 text-green-800">
-          Manager login is working. Next we will add charts and team reports.
-        </div>
-      </div>
+const ProjectsPage = () => {
+  return (
+    <div className="rounded-xl bg-white p-6 shadow-sm">
+      <h1 className="text-2xl font-bold text-gray-900">Projects</h1>
+      <p className="mt-2 text-gray-600">
+        Project management page will be developed in the next phase.
+      </p>
     </div>
   );
 };
@@ -141,26 +121,75 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
 
         <Route
-          path="/member/dashboard"
           element={
             <ProtectedRoute>
+              <DashboardShell />
+            </ProtectedRoute>
+          }
+        >
+          <Route
+            path="/member/dashboard"
+            element={
               <RoleRoute allowedRole="member">
                 <MemberDashboard />
               </RoleRoute>
-            </ProtectedRoute>
-          }
-        />
+            }
+          />
 
-        <Route
-          path="/manager/dashboard"
-          element={
-            <ProtectedRoute>
+          <Route
+            path="/member/reports"
+            element={
+              <RoleRoute allowedRole="member">
+                <MyReportsPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="/member/reports/create"
+            element={
+              <RoleRoute allowedRole="member">
+                <CreateReportPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="/member/reports/edit/:id"
+            element={
+              <RoleRoute allowedRole="member">
+                <EditReportPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="/manager/dashboard"
+            element={
               <RoleRoute allowedRole="manager">
                 <ManagerDashboard />
               </RoleRoute>
-            </ProtectedRoute>
-          }
-        />
+            }
+          />
+
+          <Route
+            path="/manager/team-reports"
+            element={
+              <RoleRoute allowedRole="manager">
+                <TeamReportsPage />
+              </RoleRoute>
+            }
+          />
+
+          <Route
+            path="/manager/projects"
+            element={
+              <RoleRoute allowedRole="manager">
+                <ProjectsPage />
+              </RoleRoute>
+            }
+          />
+        </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
